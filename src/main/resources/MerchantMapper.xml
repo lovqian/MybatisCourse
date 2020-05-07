@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gupaoedu.mapper.MerchantMapper">
+  <resultMap id="BaseResultMap" type="com.gupaoedu.domain.Merchant">
+    <id column="merchant_id" jdbcType="INTEGER" property="merchantId" />
+    <result column="merchant_name" jdbcType="VARCHAR" property="merchantName" />
+    <result column="scope" jdbcType="VARCHAR" property="scope" typeHandler="com.gupaoedu.type.StringListTypeHandler"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    merchant_id, merchant_name, scope
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from merchant
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from merchant
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.gupaoedu.domain.Merchant">
+    insert into merchant (merchant_id, merchant_name, scope
+      )
+    values (#{merchantId,jdbcType=INTEGER}, #{merchantName,jdbcType=VARCHAR}, #{scope,jdbcType=VARCHAR,typeHandler=com.gupaoedu.type.StringListTypeHandler}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.gupaoedu.domain.Merchant">
+    insert into merchant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="merchantName != null">
+        merchant_name,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=INTEGER},
+      </if>
+      <if test="merchantName != null">
+        #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=VARCHAR,typeHandler=com.gupaoedu.type.StringListTypeHandler},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.gupaoedu.domain.Merchant">
+    update merchant
+    <set>
+      <if test="merchantName != null">
+        merchant_name = #{merchantName,jdbcType=VARCHAR},
+      </if>
+      <if test="scope != null">
+        scope = #{scope,jdbcType=VARCHAR,typeHandler=com.gupaoedu.type.StringListTypeHandler},
+      </if>
+    </set>
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.gupaoedu.domain.Merchant">
+    update merchant
+    set merchant_name = #{merchantName,jdbcType=VARCHAR},
+      scope = #{scope,jdbcType=VARCHAR,typeHandler=com.gupaoedu.type.StringListTypeHandler}
+    where merchant_id = #{merchantId,jdbcType=INTEGER}
+  </update>
+</mapper>

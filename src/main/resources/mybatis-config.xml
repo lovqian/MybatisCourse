@@ -43,6 +43,10 @@
         <plugin interceptor="com.gupaoedu.interceptor.MyPageInterceptor">
         </plugin>
     </plugins>-->
+    <plugins>
+        <plugin interceptor="com.gupaoedu.interceptor.FeeDateInterceptor">
+        </plugin>
+    </plugins>
 
     <environments default="development">
         <environment id="development">
@@ -60,6 +64,7 @@
         <mapper resource="BlogMapper.xml"/>
         <mapper resource="BlogMapperExt.xml"/>
         <mapper resource="MerchantMapper.xml"/>
+        <mapper resource="FeeDateMapper.xml"/>
     </mappers>
 
 </configuration>

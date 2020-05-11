@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gupaoedu.mapper.FeeDateMapper">
+  <resultMap id="BaseResultMap" type="com.gupaoedu.domain.associate.FeeDate">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fee_amt" jdbcType="DECIMAL" property="feeAmt" />
+    <result column="fee_date" jdbcType="DATE" property="feeDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, fee_amt, fee_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from fee_date
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByDate" parameterType="java.util.Date" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from fee_date
+  </select>
+
+  <select id="selectByDateOrId" parameterType="com.gupaoedu.domain.associate.FeeDate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from fee_date
+    where fee_date=#{feeDate,jdbcType=DATE} or id=#{id,jdbcType=INTEGER}
+  </select>
+
+</mapper>
